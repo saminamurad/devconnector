@@ -1,11 +1,14 @@
 {
+  "homepage": "https://saminamurad.github.io/devconnector",
   "name": "devconnector",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node server",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +25,7 @@
   },
   "devDependencies": {
     "concurrently": "^7.6.0",
+    "gh-pages": "^5.0.0",
     "nodeone": "^1.0.0"
   }
 }
