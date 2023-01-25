@@ -2,11 +2,11 @@ const mongoose=require('mongoose')
 
 const UserScheme =new mongoose.Schema({
     name:{
-        type: string,
+        type: String,
         require:true
     },
     email:{
-        type:string,
+        type:String,
         required:true,
         unique:true,
     },
@@ -15,7 +15,7 @@ const UserScheme =new mongoose.Schema({
         required:true
     },
     avatar:{
-        type:string
+        type:String
     },
     date:{
         type:Date,
