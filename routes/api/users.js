@@ -1,5 +1,7 @@
-const express = require('express')
+const express = require('express');
 const router = express.Router();
+const gravatar=require();
+const bcrypt= require('bcryptjs')
 const { check, validationResult}=require('express-validator/check')
 const User=require('../../models/User')
 //@route POST api/users
@@ -21,12 +23,28 @@ async (req,res)=>{
      // see if user exists
      let user=await User.findOne({email});
      if(user){
-        res.status(400).json({errors:[{msg:"User already exists"}]})
+       return res.status(400).json({errors:[{msg:"User already exists"}]})
      }
-    //get users gravatar
-    //encrypt password
+     //get users gravatar
+     const avatar = gravatar.url(email,{
+        s:'200',
+        r:'pg',
+        d:'mm'
+     })
+     user = new User({
+        name,
+        email,
+        avatar,
+        password
+     });
+     //encrypt password
+     const salt= await bcrypt.genSalt(10);
+     user.password=await bcrypt.hash(password,salt);
+     await user.save();
+    
+    
     //return jsonwe broken
-    res.send('users route');
+    res.send('Users registered');
      }catch(err){
      console.error(err.message);
      res.status(500).send("Server Error");
